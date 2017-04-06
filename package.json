@@ -1,0 +1,27 @@
+{
+  "name": "gcp-wordcloud",
+  "version": "1.0.0",
+  "description": "This project deploys a web app support d3-cloud to a gcp appengine using the google-cloud sdk.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "google",
+    "cloud",
+    "javascript",
+    "node"
+  ],
+  "author": "Chris Pound",
+  "engines": {
+    "node": ">=4.3.2"
+  },
+  "scripts": {
+   "start": "node app/app.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "d3.layout.cloud": "^1.2.0",
+    "express": "^4.15.2"
+  }
+}
