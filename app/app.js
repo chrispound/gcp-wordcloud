@@ -20,12 +20,16 @@ app.get('/', (req, res) => {
 
 app.post('/push', (req, res) => {
   console.log(Object.keys(req));
-  console.log('body: ' + req.body.message);
+  if(!req.body || !req.body.message || !req.body.message.data) {
+    console.log('Could not process message');
+    return res.send('Could not process message');
+  }
+  console.log('body: ' + req.body.message.data);
   console.log(message);
   console.log('Updating message value');
-  message = `${req.body.message}`;
-  console.log(`New message value: ${req.body.message}`);
-  res.send(`Got topic push with message: ${req.body.message}`)
+  message = new Buffer(req.body.message.data, 'base64').toString('utf-8');
+  console.log(`New message value: ${req.body.message.data}`);
+  res.status(200).send(`Got topic push with message: ${req.body.message.data}`)
 });
 
 //test
