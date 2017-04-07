@@ -4,7 +4,8 @@
   "description": "This project deploys a web app support d3-cloud to a gcp appengine using the google-cloud sdk.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app/app.js",
+    "deploy": "gcloud app deploy"
   },
   "keywords": [
     "google",
@@ -16,12 +17,16 @@
   "engines": {
     "node": ">=4.3.2"
   },
-  "scripts": {
-   "start": "node app/app.js"
-  },
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "d3.layout.cloud": "^1.2.0",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-beta11",
+    "wordcloud": "^1.0.6"
+  },
+  "devDependencies": {
+    "reload": "^1.1.1"
   }
 }
