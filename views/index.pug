@@ -1,6 +1,16 @@
 html
   head
-    title= "Most Recent Message"
+    title= "Gcloud Topic WordCloud"
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.4/d3.layout.cloud.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.0.6/wordcloud2.min.js")
+
   body
-    h1= "Most recent message from /push"
-    h3= message
+    h2= "The most recent message was:"
+    h3= recentMessage
+    div(overflow ="scroll")
+      canvas(id='wordcloud' width="600" height="600" style="border:1px solid")
+  script(type='text/javascript').
+    var message =!{JSON.stringify(message)}
+    WordCloud(document.getElementById('wordcloud'), {list: message}, {minSize:12})
+      
