@@ -3,8 +3,11 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 //word:count
-let message = [];
+let words = [];
+const wordCount = {}
+const BASE_VALUE = 15
 let recentMessage = "No messages yet";
+
 
 app.use(bodyParser.json());
 app.set('view engine', 'pug')
@@ -17,7 +20,7 @@ const server = app.listen(8080, () => {
 });
 
 app.get('/', (req, res) => {
-  res.render('index', {message, recentMessage})
+  res.render('index', {words, recentMessage})
 });
 
 app.post('/push', (req, res) => {
@@ -27,7 +30,7 @@ app.post('/push', (req, res) => {
     return res.send('Could not process message');
   }
   console.log('body: ' + req.body.message.data);
-  console.log(message);
+  console.log(words);
   console.log('Updating message value');
   let data = parseDataIntoValue(req.body.message.data);
   recentMessage = data;
@@ -48,22 +51,17 @@ The data form needs to follow [['foo', 12], ['bar', 6]]
 function updateMessageWithData(data) {
   //split the sentence
   let splitWord = data.split(' ');
-  let wordFound = false;
   splitWord.forEach(word => {
-    console.log('Current word: ', word);
-    for(let i = 0; i < message.length; i++) {
-      if(message[i][0] == word) {
-        message[i][1] > 50 ? message[i][1] = 30 : message[i][1]++;
-        wordFound = true;
-      }
-    }
-    if(!wordFound) {
-      //add word to dictionary
-      message.push([word, 15]);
-    }
-    wordFound = false;
+    wordCount[word] ? wordCount[word] +=1 : wordCount[word] = 1
   });
-  console.log(`Updated Message Value:`, message);
-}
 
-//test
+  console.log('wordCount',wordCount);
+
+  words =[];
+  Object.keys(wordCount).forEach(word => {
+    console.log('word', word);
+    words.push([word, wordCount[word] + BASE_VALUE])
+  });
+
+  console.log(`Updated Message Value:`, words);
+}

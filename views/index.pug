@@ -11,6 +11,6 @@ html
     div(overflow ="scroll")
       canvas(id='wordcloud' width="600" height="600" style="border:1px solid")
   script(type='text/javascript').
-    var message =!{JSON.stringify(message)}
+    var message =!{JSON.stringify(words)}
     WordCloud(document.getElementById('wordcloud'), {list: message}, {minSize:12})
       
